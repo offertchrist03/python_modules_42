@@ -17,30 +17,32 @@ class Plant:
         self.height: int = height
         self.init_age: int = init_age
 
-    def show(self) -> None:
+    def get_info(self) -> None:
         print(
-            f"{self.name}: {self.height}cm, {self.init_age} days"
+            f"{self.name}: {self.height}cm, {self.init_age} days old"
         )
 
-    def grow(self) -> None:
-        self.height += 1
+    def grow(self, value: int) -> None:
+        self.height += value
 
-    def age(self) -> None:
-        self.init_age += 1
+    def age(self, value: int) -> None:
+        self.init_age += value
 
 
 def week_growth(plant: Plant) -> None:
     print("=== Day 1 ===")
-    plant.show()
-    i = 0
+    plant.get_info()
+
     for i in range(6):
-        plant.grow()
-        plant.age()
+        plant.grow(1)
+        plant.age(1)
+
     print("=== Day 7 ===")
-    plant.show()
+    plant.get_info()
+
     print(f"Growth this week: +{i + 1}cm")
 
 
 if __name__ == "__main__":
-    p = Plant("Rose", 25, 30)
-    week_growth(p)
+    plant = Plant("Rose", 25, 30)
+    week_growth(plant)

@@ -36,6 +36,12 @@ class SecurePlant:
     ) -> Plant:
         self.__plant: Plant = plant
 
+    def get_height(self) -> int:
+        return self.__plant.height
+
+    def get_age(self) -> int:
+        return self.__plant.age
+
     def set_height(self, new_value) -> None:
         if (new_value < 0):
             print("\nInvalid operation attempted: "
@@ -54,13 +60,18 @@ class SecurePlant:
         self.__plant.age = new_value
         print(f"Age updated: {self.__plant.age} days [OK]")
 
+    def show_current(self):
+        print(f"Current plant: {self.__plant.name} "
+              f"({self.__plant.height}cm, {self.__plant.age} days)")
+
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
     rose = Plant("Rose")
     rose.show_created()
+
     secure_rose = SecurePlant(rose)
     secure_rose.set_height(25)
     secure_rose.set_age(30)
     secure_rose.set_height(-5)
-    rose.show_current()
+    secure_rose.show_current()

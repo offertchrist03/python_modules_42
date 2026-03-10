@@ -12,10 +12,9 @@
 # ########################################################################### #
 
 def garden_operations() -> None:
-    number: int = 0
+    number: float = 0
     string: str = "abc"
     dic: dict = {"name": "koto"}
-    file: open
 
     print("Testing ValueError...")
     try:

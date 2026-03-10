@@ -16,16 +16,19 @@ class InvalidPlantName(Exception):
         self.err: str = err
 
 
-def water_plants(plant_list: list[str]) -> None:
+def water_plants(plant_list: list[str | None]) -> None:
     res: bool = True
     index: int = 0
     print("Opening watering system")
     try:
         for plant in plant_list:
-            char: str = plant[0]
-            rest = plant[1:]
-            print(f"Watering {char + rest}...")
-            index += 1
+            if plant is None:
+                break
+            else:
+                char: str = plant[0]
+                rest = plant[1:]
+                print(f"Watering {char + rest}...")
+                index += 1
     except (TypeError, IndexError):
         print(f"Error: Cannot water {plant_list[index]} - invalid plant!")
         res = False
@@ -39,11 +42,11 @@ def test_watering_system() -> None:
     print("=== Garden Watering System ===")
 
     print("")
-    plants: list[str] = ["rose", "tulip", "sunflower"]
+    plants: list[str | None] = ["rose", "tulip", "sunflower"]
     water_plants(plants)
 
     print("")
-    plants: list[str] = ["oak tree", None]
+    plants = ["oak tree", None]
     water_plants(plants)
 
     print("")

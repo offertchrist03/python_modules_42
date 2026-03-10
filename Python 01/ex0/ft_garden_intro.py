@@ -14,7 +14,7 @@
 if __name__ == "__main__":
     name: str = "Rose"
     height: int = 15
-    age: int = 20
+    age: int = 30
     print(
         "=== Welcome to My Garden ===\n"
         f"Plant: {name}\n"

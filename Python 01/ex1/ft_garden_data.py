@@ -19,19 +19,17 @@ class Plant:
 
     def show(self) -> None:
         print(
-            f"{self.name}: {self.height}cm, {self.age} days"
+            f"{self.name}: {self.height}cm, {self.age} days old"
         )
 
 
 if __name__ == "__main__":
     plants = [
-        Plant("Rose", 15, 20),
-        Plant("Hibiscus", 80, 130),
-        Plant("Tomato", 30, 30),
-        Plant("Sunflower", 150, 60)
+        Plant("Rose", 25, 30),
+        Plant("Sunflower", 80, 45),
+        Plant("Cactus", 15, 120)
     ]
 
     print("=== Garden Plant Registry ===")
-    i = 0
-    for i in range(4):
+    for i in range(3):
         plants[i].show()

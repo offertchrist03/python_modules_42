@@ -102,28 +102,29 @@ class Vegetable(Plant):
         self.nutrition()
 
 
-data_flowers = [
-    {"name": "Sunflower", "height": 30, "age": 25, "color": "yellow"},
-    {"name": "Tulip", "height": 28, "age": 21, "color": "blue"}
-]
-
-data_trees = [
-    {"name": "Oak", "height": 500, "age": 1825, "trunk_diameter": 50},
-    {"name": "Apple Tree", "height": 480, "age": 888, "trunk_diameter": 60}
-]
-
-data_vegetable = [
-    {"name": "Carrot", "height": 18, "age": 10,
-     "harvest_season": "all seasons",
-     "nutritional_value": "Carotein"},
-    {"name": "Tomato", "height": 30, "age": 30,
-     "harvest_season": "all seasons",
-     "nutritional_value": "Vitamin C"}
-]
-
 if __name__ == "__main__":
+    data_flowers = [
+        {"name": "Rose", "height": 25, "age": 30, "color": "red"},
+        {"name": "Sunflower", "height": 30, "age": 25, "color": "yellow"},
+        {"name": "Tulip", "height": 28, "age": 21, "color": "blue"}
+    ]
+
+    data_trees = [
+        {"name": "Oak", "height": 500, "age": 1825, "trunk_diameter": 50},
+        {"name": "Apple Tree", "height": 480, "age": 888, "trunk_diameter": 60}
+    ]
+
+    data_vegetable = [
+        {"name": "Carrot", "height": 18, "age": 10,
+            "harvest_season": "all seasons",
+            "nutritional_value": "Carotein"},
+        {"name": "Tomato", "height": 80, "age": 90,
+            "harvest_season": "summer",
+            "nutritional_value": "Vitamin C"}
+    ]
+
     print("=== Garden Plant Types ===")
-    i = 0
+
     for i in range(2):
         flower = Flower(
             data_flowers[i]["name"],
@@ -132,7 +133,7 @@ if __name__ == "__main__":
             data_flowers[i]["color"]
         )
         flower.display()
-    i = 0
+
     for i in range(2):
         tree = Tree(
             data_trees[i]["name"],
@@ -141,7 +142,7 @@ if __name__ == "__main__":
             data_trees[i]["trunk_diameter"]
         )
         tree.display()
-    i = 0
+
     for i in range(2):
         vegetable = Vegetable(
             data_vegetable[i]["name"],

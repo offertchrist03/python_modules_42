@@ -23,13 +23,13 @@ class CheckPlantHealthError(GardenError):
 
 class GardenManager:
     def __init__(self, water_tank: int) -> None:
-        self.plants: list[dict] = [None] * 1024
+        self.plants: list[dict | None] = [None] * 1024
         self.plant_count: int = 0
         self.water_tank: int = water_tank
 
     def add_plant(
                 self,
-                plant_name: str,
+                plant_name: str | None,
                 water_level: int,
                 sunlight_hours: int
             ) -> None:
@@ -62,31 +62,39 @@ class GardenManager:
             self.water_tank = self.plant_count
 
     def check_plants(self) -> None:
-        plant_list: list[str] = self.plants
+        plant_list: list[dict | None] = self.plants
         index: int = 0
         for plant in plant_list:
-            self.check_plant_health(
-                plant['plant_name'],
-                plant['water_level'],
-                plant['sunlight_hours']
-            )
-            index += 1
-            if index == self.plant_count:
-                break
+            if plant is not None:
+                self.check_plant_health(
+                    plant['plant_name'],
+                    plant['water_level'],
+                    plant['sunlight_hours']
+                )
+                index += 1
+                if index == self.plant_count:
+                    break
 
     def water_plants(self) -> None:
-        plant_list: list[str] = self.plants
+        curr_plant: str = ""
+        plant_list: list[dict | None] = self.plants
         index: int = 0
         print("Opening watering system")
         try:
             for plant in plant_list:
-                print(f"Watering {plant['plant_name']} - success")
-                index += 1
-                self.water_tank -= 1
-                if index == self.plant_count:
+                if plant is None:
+                    print("Error: Cannot water None"
+                          " - invalid plant!")
                     break
+                else:
+                    curr_plant = plant['plant_name']
+                    print(f"Watering {curr_plant} - success")
+                    index += 1
+                    self.water_tank -= 1
+                    if index == self.plant_count:
+                        break
         except (TypeError, IndexError):
-            print(f"Error: Cannot water {plant_list[index]['plant_name']}"
+            print(f"Error: Cannot water {curr_plant}"
                   " - invalid plant!")
         finally:
             print("Closing watering system (cleanup)")

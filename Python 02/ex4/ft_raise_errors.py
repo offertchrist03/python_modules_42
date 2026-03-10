@@ -17,10 +17,10 @@ class CheckPlantHealthError(Exception):
 
 
 def check_plant_health(
-            plant_name: str,
+            plant_name: str | None,
             water_level: int,
             sunlight_hours: int
-        ) -> str:
+        ) -> str | None:
     res: bool = True
     try:
         if plant_name is None:
@@ -50,7 +50,7 @@ def check_plant_health(
 
 
 def test_plant_checks():
-    string: str = None
+    string: str | None = None
 
     print("=== Garden Plant Health Checker ===")
 

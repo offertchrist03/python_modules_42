@@ -13,7 +13,8 @@
 
 class Plant:
     def __init__(
-        self, name: str = "(plant)",
+        self,
+        name: str = "(plant)",
         height: int = 0,
         init_age: int = 0
     ) -> None:
@@ -27,16 +28,15 @@ class Plant:
         )
 
 
-data_plants = [
-    {"name": "Rose", "height": 15, "init_age": 20},
-    {"name": "Hibiscus", "height": 80, "init_age": 130},
-    {"name": "Tomato", "height": 30, "init_age": 30},
-    {"name": "Sunflower", "height": 150, "init_age": 60},
-    {"name": "Oak", "height": 180, "init_age": 70}
-]
-
-
 if __name__ == "__main__":
+    data_plants = [
+        {"name": "Rose", "height": 25, "init_age": 30},
+        {"name": "Oak", "height": 200, "init_age": 365},
+        {"name": "Cactus", "height": 5, "init_age": 90},
+        {"name": "Sunflower", "height": 80, "init_age": 45},
+        {"name": "Fern", "height": 15, "init_age": 120}
+    ]
+
     plants: list[Plant] = [None] * 5
     i: int = 0
     print("=== Plant Factory Output ===")
