@@ -14,13 +14,15 @@
 def garden_operations() -> None:
     number: float = 0
     string: str = "abc"
-    dic: dict = {"name": "koto"}
+    dic: dict[str, str] = {"name": "koto"}
 
     print("Testing ValueError...")
     try:
         number = int(string)
     except ValueError:
         print("Caught ValueError: invalid literal for int()")
+    except Exception:
+        print("Error")
 
     print("")
     print("Testing ZeroDivisionError...")
@@ -28,6 +30,8 @@ def garden_operations() -> None:
         number = 125 / number
     except ZeroDivisionError:
         print("Caught ZeroDivisionError: division by zero")
+    except Exception:
+        print("Error")
 
     print("")
     print("Testing FileNotFoundError...")
@@ -36,24 +40,35 @@ def garden_operations() -> None:
         file.close()
     except FileNotFoundError:
         print("Caught FileNotFoundError: No such file 'missing.txt'")
+    except Exception:
+        print("Error")
 
     print("")
     print("Testing KeyError...")
     try:
         string = dic["_plant"]
     except KeyError:
-        print("Caught KeyError: 'missing\_plant'")
+        print("Caught KeyError: 'missing\\_plant'")
+    except Exception:
+        print("Error")
+
+    print("")
+    print("Testing multiple errors together...")
+    try:
+        number = int(string)
+    except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
+        print("Caught an error, but program continues!")
+    except Exception:
+        print("Error")
+    print("All error types tested successfully!")
 
 
-if __name__ == "__main__":
+def test_garden_operations() -> None:
     print("=== Garden Error Types Demo ===")
     print("")
 
     garden_operations()
 
-    print("")
-    print("Testing multiple errors together...")
-    print("Caught an error, but program continues!")
 
-    print("")
-    print("All error types tested successfully!")
+if __name__ == "__main__":
+    test_garden_operations()

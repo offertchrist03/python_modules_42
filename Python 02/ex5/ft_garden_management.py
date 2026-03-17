@@ -12,8 +12,18 @@
 # ########################################################################### #
 
 class GardenError(Exception):
-    def __init__(self, err: str):
-        Exception.__init__(self, "Caught GardenError: " + err)
+    def __init__(self, err: str) -> None:
+        Exception.__init__(self, "Caught a garden error: " + err)
+
+
+class PlantError(GardenError):
+    def __init__(self, err: str) -> None:
+        Exception.__init__(self, "Caught PlantError: " + err)
+
+
+class WaterError(GardenError):
+    def __init__(self, err: str) -> None:
+        Exception.__init__(self, "Caught WaterError: " + err)
 
 
 class CheckPlantHealthError(GardenError):
@@ -48,6 +58,8 @@ class GardenManager:
             print(f"Added {plant_name} successfully")
         except CheckPlantHealthError as err:
             print(err)
+        except Exception:
+            print("Error")
 
     def garden_recovery(self) -> None:
         encountered_err: bool = False
@@ -57,23 +69,34 @@ class GardenManager:
         except GardenError as err:
             print(err)
             encountered_err = True
+        except Exception:
+            print("Error")
+
         if encountered_err:
             print("System recovered and continuing...")
             self.water_tank = self.plant_count
 
     def check_plants(self) -> None:
-        plant_list: list[dict | None] = self.plants
-        index: int = 0
-        for plant in plant_list:
-            if plant is not None:
-                self.check_plant_health(
-                    plant['plant_name'],
-                    plant['water_level'],
-                    plant['sunlight_hours']
-                )
-                index += 1
-                if index == self.plant_count:
-                    break
+        try:
+            try:
+                plant_list: list[dict | None] = self.plants
+                index: int = 0
+                for plant in plant_list:
+                    if plant is not None:
+                        self.check_plant_health(
+                            plant['plant_name'],
+                            plant['water_level'],
+                            plant['sunlight_hours']
+                        )
+                        index += 1
+                        if index == self.plant_count:
+                            break
+            except Exception:
+                raise PlantError("on checking plants")
+        except PlantError as err:
+            print(err)
+        except Exception:
+            print("Error")
 
     def water_plants(self) -> None:
         curr_plant: str = ""
@@ -81,21 +104,26 @@ class GardenManager:
         index: int = 0
         print("Opening watering system")
         try:
-            for plant in plant_list:
-                if plant is None:
-                    print("Error: Cannot water None"
-                          " - invalid plant!")
-                    break
-                else:
-                    curr_plant = plant['plant_name']
-                    print(f"Watering {curr_plant} - success")
-                    index += 1
-                    self.water_tank -= 1
-                    if index == self.plant_count:
+            try:
+                for plant in plant_list:
+                    if plant is None:
+                        print("Error: Cannot water None"
+                              " - invalid plant!")
                         break
-        except (TypeError, IndexError):
-            print(f"Error: Cannot water {curr_plant}"
-                  " - invalid plant!")
+                    else:
+                        curr_plant = plant['plant_name']
+                        print(f"Watering {curr_plant} - success")
+                        index += 1
+                        self.water_tank -= 1
+                        if index == self.plant_count:
+                            break
+            except Exception:
+                raise WaterError("Cannot water {curr_plant}"
+                                 " - invalid plant!")
+        except WaterError as err:
+            print(err)
+        except Exception:
+            print("Error")
         finally:
             print("Closing watering system (cleanup)")
 
@@ -132,6 +160,8 @@ class GardenManager:
         except CheckPlantHealthError as err:
             res = False
             print(err)
+        except Exception:
+            print("Error")
         if res:
             print(f"{plant_name}: healthy "
                   f"(water: {water_level}, sun: {sunlight_hours})")

@@ -13,6 +13,7 @@
 
 class InvalidPlantName(Exception):
     def __init__(self, err: str) -> None:
+        Exception.__init__(self, err)
         self.err: str = err
 
 
@@ -26,12 +27,14 @@ def water_plants(plant_list: list[str | None]) -> None:
                 break
             else:
                 char: str = plant[0]
-                rest = plant[1:]
+                rest: str = plant[1:]
                 print(f"Watering {char + rest}...")
                 index += 1
     except (TypeError, IndexError):
         print(f"Error: Cannot water {plant_list[index]} - invalid plant!")
         res = False
+    except Exception:
+        print("Error")
     finally:
         print("Closing watering system (cleanup)")
     if res:

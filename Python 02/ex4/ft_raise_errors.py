@@ -44,12 +44,15 @@ def check_plant_health(
     except CheckPlantHealthError as err:
         res = False
         print(err)
+    except Exception:
+        print("Error")
+
     if res:
         return (f"Plant '{plant_name}' is healthy!")
     return None
 
 
-def test_plant_checks():
+def test_plant_checks() -> None:
     string: str | None = None
 
     print("=== Garden Plant Health Checker ===")
