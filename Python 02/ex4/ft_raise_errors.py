@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_raise_errors.py                                   :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 12:42:40 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 12:42:40 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 class CheckPlantHealthError(Exception):
     def __init__(self, err: str) -> None:
@@ -17,10 +6,10 @@ class CheckPlantHealthError(Exception):
 
 
 def check_plant_health(
-            plant_name: str | None,
-            water_level: int,
-            sunlight_hours: int
-        ) -> str | None:
+    plant_name: str | None,
+    water_level: int,
+    sunlight_hours: int
+) -> str | None:
     res: bool = True
     try:
         if plant_name is None:

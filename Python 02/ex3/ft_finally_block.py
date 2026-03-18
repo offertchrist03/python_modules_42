@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_finally_block.py                                  :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 11:31:33 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 11:31:33 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 class InvalidPlantName(Exception):
     def __init__(self, err: str) -> None:

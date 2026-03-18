@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_different_errors.py                               :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 11:30:26 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 11:30:26 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 def garden_operations() -> None:
     number: float = 0
@@ -63,7 +52,7 @@ def garden_operations() -> None:
     print("All error types tested successfully!")
 
 
-def test_garden_operations() -> None:
+def test_error_types() -> None:
     print("=== Garden Error Types Demo ===")
     print("")
 
@@ -71,4 +60,4 @@ def test_garden_operations() -> None:
 
 
 if __name__ == "__main__":
-    test_garden_operations()
+    test_error_types()

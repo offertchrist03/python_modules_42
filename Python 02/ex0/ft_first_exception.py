@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-def check_temperature(temp_str) -> int:
+def check_temperature(temp_str: str | None) -> int:
     try:
         try:
+            if temp_str is None:
+                raise ValueError()
             temp: int = int(temp_str)
         except ValueError:
             print(f"Error: '{temp_str}' is not a valid number")

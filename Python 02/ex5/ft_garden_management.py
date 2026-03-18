@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_garden_management.py                              :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 13:16:57 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 13:16:57 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 class GardenError(Exception):
     def __init__(self, err: str) -> None:
@@ -38,11 +27,11 @@ class GardenManager:
         self.water_tank: int = water_tank
 
     def add_plant(
-                self,
-                plant_name: str | None,
-                water_level: int,
-                sunlight_hours: int
-            ) -> None:
+        self,
+        plant_name: str | None,
+        water_level: int,
+        sunlight_hours: int
+    ) -> None:
         try:
             if plant_name is None:
                 raise CheckPlantHealthError(
@@ -129,10 +118,10 @@ class GardenManager:
 
     @staticmethod
     def check_plant_health(
-                plant_name: str,
-                water_level: int,
-                sunlight_hours: int
-            ) -> None:
+        plant_name: str,
+        water_level: int,
+        sunlight_hours: int
+    ) -> None:
         res: bool = True
         try:
             if plant_name is None:

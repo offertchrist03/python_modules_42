@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_custom_errors.py                                  :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 11:29:47 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 11:29:50 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 class GardenError(Exception):
     def __init__(self, err: str) -> None:
