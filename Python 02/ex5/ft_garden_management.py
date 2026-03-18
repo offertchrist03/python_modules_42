@@ -156,7 +156,7 @@ class GardenManager:
                   f"(water: {water_level}, sun: {sunlight_hours})")
 
 
-if __name__ == "__main__":
+def test_garden_management() -> None:
     print("=== Garden Management System ===")
 
     garden: GardenManager = GardenManager(3)
@@ -181,3 +181,7 @@ if __name__ == "__main__":
 
     print("")
     print("Garden management system test complete!")
+
+
+if __name__ == "__main__":
+    test_garden_management()

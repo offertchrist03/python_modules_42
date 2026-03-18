@@ -49,6 +49,8 @@ def garden_operations() -> None:
         print("Caught an error, but program continues!")
     except Exception:
         print("Error")
+
+    print()
     print("All error types tested successfully!")
 
 
