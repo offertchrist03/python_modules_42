@@ -6,6 +6,10 @@ def input_temperature(temp_str: str | None) -> int:
         if temp_str is None:
             raise ValueError("Error temp_str is None")
         temp = int(temp_str)
+        if temp < 0:
+            raise ValueError(f"{temp}°C is too cold for plants (min 0°C)")
+        if temp > 40:
+            raise ValueError(f"{temp}°C is too hot for plants (max 40°C)")
         print(f"Temperature is now 25°C '{temp}'")
         return temp
     except ValueError as err:

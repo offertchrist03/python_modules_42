@@ -2,17 +2,26 @@
 
 class GardenError(Exception):
     def __init__(self, err: str) -> None:
-        Exception.__init__(self, "Caught a garden error: " + err)
+        if not err:
+            err = "Unknown garden error"
+        error: str = "Caught GardenError: " + err
+        Exception.__init__(self, error)
 
 
-class PlantError(GardenError):
+class PlantError(Exception):
     def __init__(self, err: str) -> None:
-        Exception.__init__(self, "Caught PlantError: " + err)
+        if not err:
+            err = "Unknown plant error"
+        error: str = "Caught PlantError: " + err
+        Exception.__init__(self, error)
 
 
-class WaterError(GardenError):
+class WaterError(Exception):
     def __init__(self, err: str) -> None:
-        Exception.__init__(self, "Caught WaterError: " + err)
+        if not err:
+            err = "Unknown water error"
+        error: str = "Caught WaterError: " + err
+        Exception.__init__(self, error)
 
 
 def test_custom_errors() -> None:
@@ -39,16 +48,17 @@ def test_custom_errors() -> None:
     print("")
     print("Testing catching all garden errors...")
     try:
-        raise GardenError("The tomato plant is wilting!")
-    except GardenError as err:
-        print(err)
-    except Exception:
-        print("Error")
+        try:
+            raise GardenError("The tomato plant is wilting!")
+        except GardenError as err:
+            print(err)
+        except Exception:
+            print("Error")
 
-    try:
-        raise GardenError("Not enough water in the tank!")
-    except GardenError as err:
-        print(err)
+        try:
+            raise GardenError("Not enough water in the tank!")
+        except GardenError as err:
+            print(err)
     except Exception:
         print("Error")
 
