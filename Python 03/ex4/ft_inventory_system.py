@@ -34,7 +34,7 @@ def str_list(strings: list[str], sep: str) -> str:
         text: str = ""
         i: int = 0
         for string in strings:
-            string: str = f"{string}"
+            string = f"{string}"
             if (i < len(strings) - 1):
                 text = text + string + sep
             else:
