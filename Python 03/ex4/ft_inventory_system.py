@@ -76,7 +76,7 @@ def parse_key_value(s: str) -> tuple[str, int]:
         raise Exception(err)
 
 
-def add_new_item(new_item: str, inventory: dict[str, int]):
+def add_new_item(new_item: str, inventory: dict[str, int]) -> None:
     try:
         key, value = parse_key_value(new_item)
         if key_exists(key, inventory) == 1:

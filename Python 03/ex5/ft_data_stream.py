@@ -4,9 +4,8 @@ import random
 from collections.abc import Generator
 
 
-available_moves: list[str] = [
-    'eat', 'move', 'release', 'use',
-    'swim', 'grab', 'sleep', 'climb', 'run']
+available_moves: list[str] = ['eat', 'move', 'release', 'use', 'swim', 'grab',
+                              'sleep', 'climb', 'run']
 
 players: list[str] = ['alice', 'charlie', 'bob', 'dylan']
 
@@ -61,7 +60,7 @@ def stream_1000() -> None:
 if __name__ == "__main__":
     print("=== Game Data Stream Processor ===")
 
-    # stream_1000()
+    stream_1000()
 
     ten_events: list[tuple[str, str]] = gen_ten_events()
     print(f"Built list of 10 events: {ten_events}")

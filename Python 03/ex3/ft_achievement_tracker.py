@@ -6,15 +6,14 @@ import random
 class Common:
     def __init__(self) -> None:
         self._all_achievements: set[str] = set({
-            'Crafting Genius', 'Strategist', 'World Savior',
-            'Speed Runner', 'Survivor',
-            'Master Explorer', 'Treasure Hunter', 'Unstoppable',
-            'First Steps', 'Collector Supreme',
-            'Untouchable', 'Sharp Mind', 'Boss Slayer'})
+            'Crafting Genius', 'Strategist', 'World Savior', 'Speed Runner',
+            'Survivor', 'Master Explorer', 'Treasure Hunter', 'Unstoppable',
+            'First Steps', 'Collector Supreme', 'Untouchable', 'Sharp Mind',
+            'Boss Slayer'})
 
 
 class Player(Common):
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         Common.__init__(self)
         self.name: str = name
         self.achievements: set[str] = set()
@@ -30,12 +29,12 @@ class Player(Common):
         for _ in range(len(list_achievements)):
             try:
                 i: int = random.randint(0, len(list_achievements))
-                achievement = list_achievements[i]
+                achievement: str = list_achievements[i]
                 self.achievements.add(achievement)
             except Exception:
                 pass
 
-    def display(self):
+    def display(self) -> None:
         print(f"Player {self.name}: {self.achievements}")
 
 
@@ -63,7 +62,7 @@ def get_unique_achievements(user: Player, players: list[Player]) -> set[str]:
     return uniques
 
 
-def print_uniques(players: list[Player]):
+def print_uniques(players: list[Player]) -> None:
     for player in players:
         uniques: set[str] = get_unique_achievements(
             player, players)

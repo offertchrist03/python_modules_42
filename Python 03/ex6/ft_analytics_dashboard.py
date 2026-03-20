@@ -17,8 +17,8 @@ if __name__ == "__main__":
     print()
 
     initial_players: list[str] = [
-        'Alice', 'bob', 'Charlie', 'dylan',
-        'Emma', 'Gregory', 'john', 'kevin', 'Liam']
+        'Alice', 'bob', 'Charlie', 'dylan', 'Emma', 'Gregory', 'john', 'kevin',
+        'Liam']
 
     print(f"Initial list of players: {initial_players}")
 
