@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_command_quest.py                                  :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/02 17:10:42 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/02 17:10:42 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 import sys
 
@@ -20,9 +9,10 @@ def ft_command_quest() -> None:
     argv: list[str] = sys.argv[1:]
     argv_len: int = len(argv)
 
+    print(f"Program name: {program_name}")
+
     if (argv_len < 1):
         print("No arguments provided!")
-    print(f"Program name: {program_name}")
 
     if (argv_len > 0):
         print(f"Arguments received: {argv_len}")

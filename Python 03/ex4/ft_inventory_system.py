@@ -1,47 +1,40 @@
 #!/usr/bin/env python3
-# ########################################################################### #
-#                                                                             #
-#                                                          :::      ::::::::  #
-#   ft_inventory_system.py                               :+:      :+:    :+:  #
-#                                                      +:+ +:+         +:+    #
-#   By: mahendri <mahendri@student.42antananarivo.   +#+  +:+       +#+       #
-#                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/03/05 11:59:30 by mahendri            #+#    #+#            #
-#   Updated: 2026/03/05 11:59:30 by mahendri           ###   ########.fr      #
-#                                                                             #
-# ########################################################################### #
 
 import sys
 
 
-def ft_split(text: str, sep: str) -> list[str]:
-    try:
-        word_count: int = sum(char == sep for char in text) + 1
-
-        parts: list[str] = [""] * word_count
-        part_index: int = 0
-        i: int = 0
-        start: int = 0
-        for char in text:
-            if char == sep:
-                parts[part_index] = text[start:i]
-                part_index += 1
-                start = i + 1
-            i += 1
-        if (part_index == word_count - 1):
-            parts[part_index] = text[start:i]
-        return parts
-    except Exception as err:
-        print(f"Error: {err}")
-        return [""]
+def find_index(char: str, s: str) -> int:
+    i: int = 0
+    for c in s:
+        if c == char:
+            return i
+        i += 1
+    return -1
 
 
-def str_list(strings: list, sep: str) -> str:
+def find_occ(char: str, s: str) -> int:
+    i: int = 0
+    occ: int = 0
+    for c in s:
+        if c == char:
+            occ += 1
+        i += 1
+    return occ
+
+
+def key_exists(key: str, dicts: dict[str, int]) -> int:
+    for key_d in dicts.keys():
+        if key == key_d:
+            return 1
+    return -1
+
+
+def str_list(strings: list[str], sep: str) -> str:
     try:
         text: str = ""
         i: int = 0
         for string in strings:
-            string = f"{string}"
+            string: str = f"{string}"
             if (i < len(strings) - 1):
                 text = text + string + sep
             else:
@@ -49,118 +42,92 @@ def str_list(strings: list, sep: str) -> str:
             i += 1
         return text
     except Exception as err:
-        print(f"Error: {err}")
-        return ""
+        raise Exception(f"Error: {err}")
 
 
-def handle_parse(string: str) -> dict[str, int]:
+def str_list_int(integers: list[int], sep: str) -> str:
     try:
-        item: dict[str, int] = {}
-        if (len(ft_split(string, ':')) <= 1):
-            raise Exception("Usage = <item>:<value>")
-        [key, value] = ft_split(string, ':')
-        item.update({key: int(value)})
-    except ValueError as err:
-        print(f"Error : {err}")
-        return {}
+        text: str = ""
+        i: int = 0
+        for integer in integers:
+            string: str = f"{integer}"
+            if (i < len(integers) - 1):
+                text = text + string + sep
+            else:
+                text = text + string
+            i += 1
+        return text
     except Exception as err:
-        print(f"Error : {err}")
-        return {}
-    else:
-        return item
+        raise Exception(f"Error: {err}")
 
 
-def parse_dict(argv: list[str]) -> dict[str, int]:
+def parse_key_value(s: str) -> tuple[str, int]:
     try:
-        inventory: dict[str, int] = {}
-        for arg in argv:
-            item = handle_parse(arg)
-            inventory.update(item)
+        sep: int = find_index(':', s)
+        if find_occ(':', s) != 1:
+            raise ValueError(f"Error - invalid parameter {s!r}")
+        key: str = s[:sep]
+        try:
+            value: int = int(s[sep+1:])
+        except ValueError as err:
+            raise ValueError(f"Quantity error for '{key}': {err}")
+        return (key, value)
     except Exception as err:
-        print(f"Error : {err}")
-        raise Exception("Please verify your inputs")
-    else:
-        return inventory
-
-
-def inventory_analysis(inventory: dict[str, int]) -> list[int]:
-    total_items: int = 0
-    total_items += sum(inventory.values())
-
-    res: list[int] = [total_items, len(inventory)]
-    return res
-
-
-def show_current_inventory(inventory: dict[str, int]) -> None:
-    [total_items, inventory_len] = inventory_analysis(inventory)
-    for [key, value] in inventory.items():
-        percent: float = (value / total_items) * 100
-        print(f"{key}: {value} ({percent:.1f}%)")
-
-
-def get_min_max(inventory: dict[str, int]) -> dict[str, int]:
-    try:
-        min_max: dict[str, int] = {}
-        if (len(inventory) == 1):
-            min_max = inventory
-            return min_max
-
-        min_value: int = min(inventory.values())
-        for [key, value] in inventory.items():
-            if value == min_value:
-                min_max[key] = value
-                break
-
-        max_value: int = max(inventory.values())
-        for [key, value] in inventory.items():
-            if value == max_value:
-                min_max[key] = value
-                break
-    except Exception as err:
-        print(f"Error : {err}")
         raise Exception(err)
-    else:
-        return min_max
 
 
-def restock_suggestion(inventory: dict[str, int]) -> dict[str, int]:
-    if len(inventory) <= 1:
-        return inventory
-
-    need: dict[str, int] = {}
-    min_max_items: dict[str, int] = get_min_max(inventory)
-    [min_value, max_value] = min_max_items.values()
-
-    for [key, value] in inventory.items():
-        if min_value >= value:
-            need.update({key: value})
-
-    return need
-
-
-def categorize_moderates_scarces(inventory: dict[str, int]) -> list[
-    dict[str, int]
-]:
+def add_new_item(new_item: str, inventory: dict[str, int]):
     try:
-        min_max_items: dict[str, int] = get_min_max(inventory)
-        [min_item, max_item] = min_max_items.items()
-        average: int = max_item[1] - min_item[1]
+        key, value = parse_key_value(new_item)
+        if key_exists(key, inventory) == 1:
+            raise ValueError(f"Redundant item '{key}' - discarding")
+        else:
+            inventory[key] = int(value)
+    except (ValueError, KeyError, Exception) as err:
+        print(err)
 
-        moderates: dict[str, int] = {}
-        for [key, value] in inventory.items():
-            if (value >= average):
-                moderates[key] = value
 
-        scarces: dict[str, int] = {}
-        for [key, value] in inventory.items():
-            if (value < average):
-                scarces[key] = value
-    except Exception as err:
-        print(f"Error : {err}")
-        return []
-    else:
-        res: list[dict[str, int]] = [moderates, scarces]
-        return res
+def parse_argv(argv: list[str]) -> dict[str, int]:
+    inventory: dict[str, int] = {}
+    for arg in argv:
+        add_new_item(arg, inventory)
+    return inventory
+
+
+def get_max_item(inventory: dict[str, int]) -> str:
+    max_key: str = ""
+    for item in inventory:
+        if max_key == "":
+            max_key = item
+        else:
+            if inventory[max_key] < inventory[item]:
+                max_key = item
+    return max_key
+
+
+def get_min_item(inventory: dict[str, int]) -> str:
+    min_key: str = ""
+    for item in inventory:
+        if min_key == "":
+            min_key = item
+        else:
+            if inventory[min_key] > inventory[item]:
+                min_key = item
+    return min_key
+
+
+def inventory_summary(inventory: dict[str, int]) -> None:
+    total_items: int = sum(inventory.values())
+    for item in inventory:
+        percent: float = round((inventory[item] / total_items) * 100, 1)
+        print(f"Item {item} represents {percent}%")
+
+    max_item: str = get_max_item(inventory)
+    print(
+        f"Item most abundant: {max_item} with quantity {inventory[max_item]}")
+    min_item: str = get_min_item(inventory)
+    print(
+        f"Item least abundant: {min_item} with quantity {inventory[min_item]}")
 
 
 def ft_inventory_system() -> None:
@@ -170,62 +137,20 @@ def ft_inventory_system() -> None:
     if (len(argv) < 1):
         return
 
-    try:
-        inventory: dict[str, int] = parse_dict(argv)
-    except Exception as err:
-        print(f"Error : {err}")
-    else:
-        print("=== Inventory System Analysis ===")
-        [total_items, inventory_len] = inventory_analysis(inventory)
-        print(f"Total items in inventory: {total_items}")
-        print(f"Unique item types: {inventory_len}")
+    inventory: dict[str, int] = parse_argv(argv)
+    print(f"Got inventory: {inventory}")
+    print(f"Item list: {inventory.keys()}")
+    print(
+        (f"Total quantity of the {len(inventory.keys())} "
+         f"items: {sum(inventory.values())}")
+    )
 
-        print()
-        print("=== Current Inventory ===")
-        show_current_inventory(inventory)
+    inventory_summary(inventory)
 
-        print()
-        print("=== Inventory Statistics ===")
-        if len(inventory) > 1:
-            min_max_items = get_min_max(inventory)
-            [min_item, max_item] = min_max_items.items()
-            print(f"Most abundant: {max_item[0]} ({max_item[1]} units)")
-            print(f"Least abundant: {min_item[0]} ({min_item[1]} unit)")
-        else:
-            inventory_list_key: list[str] = [key
-                                             for key in inventory.keys()]
-            inventory_list_value: list[int] = [value
-                                               for value in inventory.values()]
-            print("Most abundant: "
-                  f"{str_list(inventory_list_key, ',')} "
-                  f"({str_list(inventory_list_value, '')} units)")
-            print(f"Least abundant: "
-                  f"{str_list(inventory_list_key, ',')} "
-                  f"({str_list(inventory_list_value, '')} units)")
-
-            print()
-            print("=== Item Categories ===")
-            if len(inventory) > 1:
-                [moderates, scarces] = categorize_moderates_scarces(inventory)
-                print(f"Moderate: {moderates}")
-                print(f"Scarce: {scarces}")
-            else:
-                print(f"Moderate: {inventory}")
-                print(f"Scarce: {inventory}")
-
-            print()
-            print("=== Management Suggestions ===")
-            restock = restock_suggestion(inventory)
-            print(f"Restock needed: {restock}")
-
-            print()
-            print("=== Dictionary Properties Demo ===")
-            print(f"Dictionary keys: {str_list(inventory_list_key, ', ')}")
-            print("Dictionary values: "
-                  f"{str_list(inventory_list_value, ', ')}")
-            print("Sample lookup - 'sword' in inventory: "
-                  f"{not not (inventory.get('sword'))}")
+    add_new_item("magic_item:1", inventory)
+    print(f"Updated inventory: {inventory}")
 
 
 if __name__ == "__main__":
+    print("=== Inventory System Analysis ===")
     ft_inventory_system()
