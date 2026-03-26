@@ -1,19 +1,12 @@
 #!/usr/bin/env python3
 
 def input_temperature(temp_str: str | None) -> int:
-    try:
-        print(f"Input data is '{temp_str}'")
-        if temp_str is None:
-            raise ValueError("Error temp_str is None")
-        temp = int(temp_str)
-        print(f"Temperature is now 25°C '{temp}'")
-        return temp
-    except ValueError as err:
-        print(f"Caught input_temperature error: {err}")
-        return -1
-    except Exception as err:
-        print(f"Exception Error:\n{err}")
-        return -1
+    print(f"Input data is '{temp_str}'")
+    if temp_str is None:
+        raise ValueError("Error temp_str is None")
+    temp = int(temp_str)
+    print(f"Temperature is now 25°C '{temp}'")
+    return temp
 
 
 def test_temperature() -> None:
@@ -23,7 +16,12 @@ def test_temperature() -> None:
     test_cases: list[str | None] = ["25", "abc", "100", "-50", None]
 
     for case in test_cases:
-        _: int = input_temperature(case)
+        try:
+            _: int = input_temperature(case)
+        except ValueError as err:
+            print(f"Caught input_temperature error: {err}")
+        except Exception as err:
+            print(f"Exception Error:\n{err}")
         print("")
 
     print("All tests completed - program didn't crash!")

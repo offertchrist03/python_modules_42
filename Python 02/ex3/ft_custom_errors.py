@@ -1,27 +1,18 @@
 #!/usr/bin/env python3
 
 class GardenError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown garden error"
-        error: str = "Caught GardenError: " + err
-        Exception.__init__(self, error)
+    def __init__(self, err: str = "Unknown garden error") -> None:
+        Exception.__init__(self, err)
 
 
-class PlantError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown plant error"
-        error: str = "Caught PlantError: " + err
-        Exception.__init__(self, error)
+class PlantError(GardenError):
+    def __init__(self, err: str = "Unknown plant error") -> None:
+        GardenError.__init__(self, err)
 
 
-class WaterError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown water error"
-        error: str = "Caught WaterError: " + err
-        Exception.__init__(self, error)
+class WaterError(GardenError):
+    def __init__(self, err: str = "Unknown water error") -> None:
+        GardenError.__init__(self, err)
 
 
 def test_custom_errors() -> None:
@@ -32,7 +23,7 @@ def test_custom_errors() -> None:
     try:
         raise PlantError("The tomato plant is wilting!")
     except PlantError as err:
-        print(err)
+        print(f"Caught PlantError: {err}")
     except Exception:
         print("Error")
 
@@ -41,24 +32,23 @@ def test_custom_errors() -> None:
     try:
         raise WaterError("Not enough water in the tank!")
     except WaterError as err:
-        print(err)
+        print(f"Caught WaterError: {err}")
     except Exception:
         print("Error")
 
     print("")
     print("Testing catching all garden errors...")
     try:
-        try:
-            raise GardenError("The tomato plant is wilting!")
-        except GardenError as err:
-            print(err)
-        except Exception:
-            print("Error")
+        raise PlantError("The tomato plant is wilting!")
+    except GardenError as err:
+        print(f"Caught GardenError: {err}")
+    except Exception:
+        print("Error")
 
-        try:
-            raise GardenError("Not enough water in the tank!")
-        except GardenError as err:
-            print(err)
+    try:
+        raise WaterError("Not enough water in the tank!")
+    except GardenError as err:
+        print(f"Caught GardenError: {err}")
     except Exception:
         print("Error")
 

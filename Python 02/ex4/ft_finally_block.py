@@ -1,27 +1,14 @@
 #!/usr/bin/env python3
 
 class GardenError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown garden error"
-        error: str = "Caught GardenError: " + err
-        Exception.__init__(self, error)
+    def __init__(self, err: str = "Unknown garden error") -> None:
+        Exception.__init__(self, err)
 
 
-class PlantError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown plant error"
+class PlantError(GardenError):
+    def __init__(self, err: str = "Unknown plant error") -> None:
         error: str = "Caught PlantError: " + err
-        Exception.__init__(self, error)
-
-
-class WaterError(Exception):
-    def __init__(self, err: str) -> None:
-        if not err:
-            err = "Unknown water error"
-        error: str = "Caught WaterError: " + err
-        Exception.__init__(self, error)
+        GardenError.__init__(self, error)
 
 
 def water_plant(plant_name: str | None) -> None:
@@ -45,9 +32,11 @@ def test_watering_system() -> None:
         print("Opening watering system")
         for plant in valid_plants:
             water_plant(plant)
-    except PlantError as err:
+    except GardenError as err:
         print(err)
         print(".. ending tests and returning to main")
+    except Exception:
+        print("Error")
     finally:
         print("Closing watering system")
 
@@ -59,9 +48,11 @@ def test_watering_system() -> None:
         print("Opening watering system")
         for plant in non_valid_plants:
             water_plant(plant)
-    except PlantError as err:
+    except GardenError as err:
         print(err)
         print(".. ending tests and returning to main")
+    except Exception:
+        print("Error")
     finally:
         print("Closing watering system")
 
