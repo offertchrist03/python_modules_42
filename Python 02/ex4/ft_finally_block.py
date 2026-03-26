@@ -43,7 +43,7 @@ def test_watering_system() -> None:
     print()
     non_valid_plants: list[str] = ["Tomato", "lettuce", "Carrots"]
 
-    print("Testing valid plants...")
+    print("Testing invalid plants...")
     try:
         print("Opening watering system")
         for plant in non_valid_plants:
