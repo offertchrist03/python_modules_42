@@ -21,8 +21,7 @@ def secure_archive(
     except Exception as err:
         res = False
         content = str(err)
-    finally:
-        return (res, content)
+    return (res, content)
 
 
 if __name__ == "__main__":

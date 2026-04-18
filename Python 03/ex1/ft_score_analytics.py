@@ -37,7 +37,10 @@ def ft_score_analytics() -> None:
             print(f"Low score: {min(scores)}")
             print(f"Score range: {max(scores) - min(scores)}")
         else:
-            print("python3 ft_score_analytics.py <score1> <score2> ...")
+            print(
+                ("No scores provided. Usage: "
+                 "python3 ft_score_analytics.py <score1> <score2> ...")
+            )
 
 
 if __name__ == "__main__":

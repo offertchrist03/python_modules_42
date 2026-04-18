@@ -67,6 +67,8 @@ def parse_key_value(s: str) -> tuple[str, int]:
         if find_occ(':', s) != 1:
             raise ValueError(f"Error - invalid parameter {s!r}")
         key: str = s[:sep]
+        if not key:
+            raise ValueError(f"Key error '{key}' on: '{s}' - discarding")
         try:
             value: int = int(s[sep+1:])
         except ValueError as err:
@@ -131,24 +133,23 @@ def inventory_summary(inventory: dict[str, int]) -> None:
 
 
 def ft_inventory_system() -> None:
-    if (len(sys.argv) < 1):
-        return
-    argv: list[str] = sys.argv[1:]
-    if (len(argv) < 1):
-        return
+    try:
+        argv: list[str] = sys.argv[1:]
 
-    inventory: dict[str, int] = parse_argv(argv)
-    print(f"Got inventory: {inventory}")
-    print(f"Item list: {inventory.keys()}")
-    print(
-        (f"Total quantity of the {len(inventory.keys())} "
-         f"items: {sum(inventory.values())}")
-    )
+        inventory: dict[str, int] = parse_argv(argv)
+        print(f"Got inventory: {inventory}")
+        print(f"Item list: {inventory.keys()}")
+        print(
+            (f"Total quantity of the {len(inventory.keys())} "
+             f"items: {sum(inventory.values())}")
+        )
 
-    inventory_summary(inventory)
+        inventory_summary(inventory)
 
-    add_new_item("magic_item:1", inventory)
-    print(f"Updated inventory: {inventory}")
+        add_new_item("magic_item:1", inventory)
+        print(f"Updated inventory: {inventory}")
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

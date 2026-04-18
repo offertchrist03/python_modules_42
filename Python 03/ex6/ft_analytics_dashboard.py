@@ -3,12 +3,30 @@
 import random
 
 
+def validate_player(players: list[str]) -> list[str]:
+    valids: list[str] = []
+
+    for player in players:
+        try:
+            player += ""
+            if not player:
+                raise Exception()
+            valids += [player]
+        except Exception:
+            pass
+
+    return valids
+
+
 def gen_score(players: list[str], mean: int = 0) -> dict[str, int]:
     scored_players: dict[str, int] = {}
-    score: int = 0
-    for p in players:
-        score = random.randint(0 + mean, 1000 + mean)
-        scored_players[p] = score
+    try:
+        score: int = 0
+        for p in players:
+            score = random.randint(0 + mean, 1000 + mean)
+            scored_players[p] = score
+    except Exception:
+        pass
     return scored_players
 
 
@@ -16,9 +34,9 @@ if __name__ == "__main__":
     print("=== Game Data Alchemist ===")
     print()
 
-    initial_players: list[str] = [
+    initial_players: list[str] = validate_player([
         'Alice', 'bob', 'Charlie', 'dylan', 'Emma', 'Gregory', 'john', 'kevin',
-        'Liam']
+        'Liam'])
 
     print(f"Initial list of players: {initial_players}")
 
