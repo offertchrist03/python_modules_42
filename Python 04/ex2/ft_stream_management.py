@@ -57,6 +57,7 @@ def save_content(data: str) -> None:
         try:
             file = open(save_as, 'w')
             _: int = file.write(data)
+            file.close()
             print("Data saved succesfuly.")
         except Exception as err:
             print(
