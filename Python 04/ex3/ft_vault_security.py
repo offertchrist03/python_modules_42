@@ -4,7 +4,7 @@ def secure_archive(
         filename: str,
         action: str = "r",
         new_content: str = "") -> tuple[bool, str]:
-    res: bool = True
+    res: bool = False
     content: str = ""
     try:
         if action not in ("r", "w"):
@@ -18,8 +18,8 @@ def secure_archive(
             with open(filename, "w") as file:
                 _ = file.write(new_content)
                 content = "Content successfully written to file"
+        res = True
     except Exception as err:
-        res = False
         content = str(err)
     return (res, content)
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     print()
     print("Using 'secure_archive' to read from a regular file:")
-    test = secure_archive('classified_data.txt')
+    test = secure_archive('your_text.txt')
     print(test)
 
     print()

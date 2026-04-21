@@ -4,7 +4,7 @@ import sys
 
 
 def main() -> None:
-    if len(sys.argv) <= 1:
+    if len(sys.argv) != 2:
         print("Usage: ft_ancient_text.py <file>")
         return
 
@@ -20,10 +20,6 @@ def main() -> None:
         print("---")
         file.close()
         print(f"File '{filename}' closed.")
-    except FileNotFoundError as err:
-        print(f"Error opening file '{filename}': {err}")
-    except PermissionError as err:
-        print(f"Error opening file '{filename}': {err}")
     except Exception as err:
         print(f"Error opening file '{filename}': {err}")
 
