@@ -110,8 +110,9 @@ class LogProcessor(DataProcessor):
                 return is_dict_str(data)
             if isinstance(data, list):
                 for item in data:
-                    return is_dict_str(item)
-            return False
+                    if not is_dict_str(item):
+                        return False
+            return True
         except Exception:
             return False
 

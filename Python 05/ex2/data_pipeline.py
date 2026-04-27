@@ -110,8 +110,9 @@ class LogProcessor(DataProcessor):
                 return is_dict_str(data)
             if isinstance(data, list):
                 for item in data:
-                    return is_dict_str(item)
-            return False
+                    if not is_dict_str(item):
+                        return False
+            return True
         except Exception:
             return False
 
@@ -167,6 +168,59 @@ def proc_label(proc: DataProcessor) -> str:
         res += c
         is_first = False
     return res
+
+
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        ...
+
+
+class ExportPluginCSV:
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        data_len = len(data)
+        res = ""
+        print("CSV Output:")
+        for _, item in data:
+            endl = ""
+            if data_len > 1:
+                endl = ", "
+            item_type = get_type(item)
+            if item_type == "dict":
+                d = item[1:-1].split(",")
+                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
+                res += f"{d[1].split(":")[1].strip()[1:-1]}"
+                res += endl
+            elif item_type == "int" or item_type == "str":
+                res += item
+                res += endl
+            data_len -= 1
+        print(res)
+
+
+class ExportPluginJSON:
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        data_len = len(data)
+        res = ""
+        print("JSON Output:")
+        res += "{"
+        for rank, item in data:
+            endl = ""
+            if data_len > 1:
+                endl = ", "
+            item_type = get_type(item)
+            if item_type == "dict":
+                d = item[1:-1].split(",")
+                res += f"\"item_{rank}\": \""
+                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
+                res += f"{d[1].split(":")[1].strip()[1:-1]}"
+                res += "\""
+                res += endl
+            elif item_type == "int" or item_type == "str":
+                res += f"\"item_{rank}\": \"{item}\""
+                res += endl
+            data_len -= 1
+        res += "}"
+        print(res)
 
 
 class DataStream:
@@ -254,59 +308,6 @@ def get_type(param: str) -> str | None:
         return "int"
     except Exception:
         return "str"
-
-
-class ExportPlugin(Protocol):
-    def process_output(self, data: list[tuple[int, str]]) -> None:
-        ...
-
-
-class ExportPluginCSV:
-    def process_output(self, data: list[tuple[int, str]]) -> None:
-        data_len = len(data)
-        res = ""
-        print("CSV Output:")
-        for _, item in data:
-            endl = ""
-            if data_len > 1:
-                endl = ", "
-            item_type = get_type(item)
-            if item_type == "dict":
-                d = item[1:-1].split(",")
-                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
-                res += f"{d[1].split(":")[1].strip()[1:-1]}"
-                res += endl
-            elif item_type == "int" or item_type == "str":
-                res += item
-                res += endl
-            data_len -= 1
-        print(res)
-
-
-class ExportPluginJSON:
-    def process_output(self, data: list[tuple[int, str]]) -> None:
-        data_len = len(data)
-        res = ""
-        print("JSON Output:")
-        res += "{"
-        for rank, item in data:
-            endl = ""
-            if data_len > 1:
-                endl = ", "
-            item_type = get_type(item)
-            if item_type == "dict":
-                d = item[1:-1].split(",")
-                res += f"\"item_{rank}\": \""
-                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
-                res += f"{d[1].split(":")[1].strip()[1:-1]}"
-                res += "\""
-                res += endl
-            elif item_type == "int" or item_type == "str":
-                res += f"\"item_{rank}\": \"{item}\""
-                res += endl
-            data_len -= 1
-        res += "}"
-        print(res)
 
 
 if __name__ == "__main__":
