@@ -141,8 +141,8 @@ def extracts(
                 if visible:
                     print(
                         (f"{label} {extracted[0]}: "
-                         f"{data[0].split(": ")[1][1:-1]}: "
-                         f"{data[1].split(": ")[1][1:-1]}")
+                         f"{data[0].split(': ')[1][1:-1]}: "
+                         f"{data[1].split(': ')[1][1:-1]}")
                     )
         else:
             for _ in range(n):

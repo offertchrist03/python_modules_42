@@ -141,8 +141,8 @@ def extracts(
                 if visible:
                     print(
                         (f"{label} {extracted[0]}: "
-                         f"{data[0].split(": ")[1][1:-1]}: "
-                         f"{data[1].split(": ")[1][1:-1]}")
+                         f"{data[0].split(': ')[1][1:-1]}: "
+                         f"{data[1].split(': ')[1][1:-1]}")
                     )
         else:
             for _ in range(n):
@@ -187,8 +187,8 @@ class ExportPluginCSV:
             item_type = get_type(item)
             if item_type == "dict":
                 d = item[1:-1].split(",")
-                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
-                res += f"{d[1].split(":")[1].strip()[1:-1]}"
+                res += f"{d[0].split(':')[1].strip()[1:-1]}: "
+                res += f"{d[1].split(':')[1].strip()[1:-1]}"
                 res += endl
             elif item_type == "int" or item_type == "str":
                 res += item
@@ -211,8 +211,8 @@ class ExportPluginJSON:
             if item_type == "dict":
                 d = item[1:-1].split(",")
                 res += f"\"item_{rank}\": \""
-                res += f"{d[0].split(":")[1].strip()[1:-1]}: "
-                res += f"{d[1].split(":")[1].strip()[1:-1]}"
+                res += f"{d[0].split(':')[1].strip()[1:-1]}: "
+                res += f"{d[1].split(':')[1].strip()[1:-1]}"
                 res += "\""
                 res += endl
             elif item_type == "int" or item_type == "str":

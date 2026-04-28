@@ -139,8 +139,8 @@ def extracts(
                 if visible:
                     print(
                         (f"{label} {extracted[0]}: "
-                         f"{data[0].split(": ")[1][1:-1]}: "
-                         f"{data[1].split(": ")[1][1:-1]}")
+                         f"{data[0].split(': ')[1][1:-1]}: "
+                         f"{data[1].split(': ')[1][1:-1]}")
                     )
         else:
             for _ in range(n):
@@ -197,15 +197,15 @@ if __name__ == "__main__":
         print(f"Trying to validate input 'Hello': {log.validate('Hello')}")
         print(
             ("Trying to validate input '{0: \"warning\"}': "
-             f"{log.validate({0: "warning"})}")
+             f"{log.validate({0: 'warning'})}")
         )
         print(
             ("Trying to validate input '{\"info\": 42}': "
-             f"{log.validate({"info": 42})}")
+             f"{log.validate({'info': 42})}")
         )
         print(
             ("Trying to validate input '{\"info\": \"warning\"}': "
-             f"{log.validate({"info": "warning"})}")
+             f"{log.validate({'info': 'warning'})}")
         )
     except Exception as err:
         print(f"Error: {err}")
