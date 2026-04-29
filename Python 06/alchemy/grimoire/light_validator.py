@@ -1,15 +1,15 @@
 def validate_ingredients(ingredients: str) -> str:
     try:
-        temp: str = ingredients
-        temp = temp.replace(',', '')
-        temp = temp.replace('and', '')
-        temp = temp.replace('or', '')
-        temp = temp.lower()
+        from .light_spellbook import light_spell_allowed_ingredients
 
-        alloweds: list[str] = ["earth", "air", "fire", "water"]
-        for ingredient in temp.split(" "):
-            if ingredient != '' and not ingredient.strip() in alloweds:
-                raise Exception()
+        check = False
+        alloweds: list[str] = light_spell_allowed_ingredients()
+        for ingredient in alloweds:
+            if ingredient in ingredients:
+                check = True
+                break
+        if not check:
+            raise Exception()
         return f"{ingredients} - VALID"
     except Exception:
         return f"{ingredients} - INVALID"
