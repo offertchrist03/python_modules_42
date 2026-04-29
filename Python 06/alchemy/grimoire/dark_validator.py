@@ -3,15 +3,16 @@ from .dark_spellbook import dark_spell_allowed_ingredients
 
 def validate_ingredients(ingredients: str) -> str:
     try:
-        ingredients = ingredients.replace(',', '')
-        ingredients = ingredients.replace('and', '')
-        ingredients = ingredients.replace('or', '')
-        ingredients = ingredients.lower()
+        temp: str = ingredients
+        temp = temp.replace(',', '')
+        temp = temp.replace('and', '')
+        temp = temp.replace('or', '')
+        temp = temp.lower()
 
         alloweds: list[str] = dark_spell_allowed_ingredients()
-        for ingredient in ingredients.split(" "):
+        for ingredient in temp.split(" "):
             if ingredient != '' and not ingredient.strip() in alloweds:
                 raise Exception()
-        return "VALID"
+        return f"{ingredients} - VALID"
     except Exception:
-        return "INVALID"
+        return f"{ingredients} - INVALID"

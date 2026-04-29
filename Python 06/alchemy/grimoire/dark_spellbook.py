@@ -7,10 +7,11 @@ def dark_spell_allowed_ingredients() -> list[str]:
 
 def dark_spell_record(spell_name: str, ingredients: str) -> str:
     check: str = validate_ingredients(ingredients)
+
     action = "UNKNOWN"
-    if check == "VALID":
-        action = "recorded"
-    elif check == "INVALID":
+    if check.endswith("INVALID"):
         action = "rejected"
-    res: str = f"Spell {action}: {spell_name} ({ingredients} - {check})"
+    elif check.endswith("VALID"):
+        action = "recorded"
+    res: str = f"Spell {action}: {spell_name} ({check})"
     return res
