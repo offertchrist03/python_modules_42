@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import alchemy.transmutation.recipes
+import alchemy.transmutation.recipes as recipes
 
 if __name__ == "__main__":
     print("=== Transmutation 0 ===")
     print("Using file alchemy/transmutation/recipes.py directly")
     print("Testing lead to gold: ", end="")
-    print(f"{alchemy.transmutation.recipes.lead_to_gold()}")
+    print(f"{recipes.lead_to_gold()}")
