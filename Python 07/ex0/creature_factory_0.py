@@ -1,11 +1,8 @@
-from .creature import (Creature, Flameling, Pyrodon, Aquabub, Torragon)
+from .creature_0 import (Creature, Flameling, Pyrodon, Aquabub, Torragon)
 from abc import ABC, abstractmethod
 
 
 class CreatureFactory(ABC):
-    def __init__(self) -> None:
-        pass
-
     @abstractmethod
     def create_base(self) -> Creature:
         ...
