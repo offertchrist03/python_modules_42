@@ -2,6 +2,7 @@
 
 import sys
 import os
+import site
 
 
 def venv_check() -> bool:
@@ -34,11 +35,11 @@ def venv_info(is_virtual: bool) -> None:
         print("Package installation path:")
 
         try:
-            command: str = f"find \"{sys.prefix}\" -name \"site-packages\""
-            package_path: str = (os.popen(command)).read()
+            package_paths: list[str] = site.getsitepackages()
+            for path in package_paths:
+                print(path)
         except Exception:
-            package_path = "[ERROR]"
-        print(package_path, end="")
+            print("[ERROR]")
 
 
 if __name__ == "__main__":
