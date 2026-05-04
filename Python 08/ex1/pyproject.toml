@@ -1,0 +1,21 @@
+[project]
+name = "ex1"
+version = "0.1.0"
+description = "Learn venv using poetry"
+requires-python = ">=3.13"
+authors = [
+  { name = "Mamisoa Fitiavana Christ Offert Hendriniaina", email = "mahendri@student.42antananarivo.mg" }
+]
+dependencies = [
+  "matplotlib>=3.10.9",
+  "numpy>=2.4.4",
+  "pandas>=3.0.2",
+  "requests>=2.33.1"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
