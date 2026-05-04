@@ -8,8 +8,8 @@ from ex0 import (FlameFactory, AquaFactory)
 
 
 tournament_creature_type = tuple[CreatureFactory, BattleStrategy]
-battle_versus_type = list[tuple[tournament_creature_type,
-                                tournament_creature_type]]
+versus_type = list[tuple[tournament_creature_type,
+                         tournament_creature_type]]
 
 
 def get_class_name(classe: CreatureFactory | BattleStrategy) -> str:
@@ -46,8 +46,8 @@ def battle_names(creatures: list[tournament_creature_type]) -> str:
     return res
 
 
-def battle_versus(creatures: list[tournament_creature_type]
-                  ) -> battle_versus_type:
+def versus(creatures: list[tournament_creature_type]
+           ) -> versus_type:
     battles: list[tuple[tournament_creature_type,
                         tournament_creature_type]] = []
 
@@ -62,12 +62,12 @@ def battle_versus(creatures: list[tournament_creature_type]
     return (battles)
 
 
-def single(
+def battle(
     creatures: list[tournament_creature_type],
 ) -> None:
     print(f"{battle_names(creatures)}")
 
-    battles = battle_versus(creatures)
+    battles = versus(creatures)
     for creature_1, creature_2 in battles:
         print("\n* Battle *")
         print(f"{creature_1[0].create_base().describe()}")
@@ -97,14 +97,14 @@ if __name__ == "__main__":
         (fire, normal_strategy),
         (healer, defensive_strategy),
     ]
-    single(tournament_0)
+    battle(tournament_0)
 
     print("Tournament 1 (error)")
     tournament_1: list[tournament_creature_type] = [
         (fire, agressive_strategy),
         (healer, defensive_strategy),
     ]
-    single(tournament_1)
+    battle(tournament_1)
 
     print("Tournament 2 (multiple)")
     tournament_2: list[tournament_creature_type] = [
@@ -112,4 +112,4 @@ if __name__ == "__main__":
         (healer, defensive_strategy),
         (morph, agressive_strategy),
     ]
-    single(tournament_2)
+    battle(tournament_2)
