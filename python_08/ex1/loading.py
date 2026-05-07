@@ -8,7 +8,8 @@ from importlib.metadata import version
 def packages_infos(requirements: list[str], excludes: list[str]) -> None:
     response: dict[str, str] = {'pandas': 'Data manipulation ready',
                                 'matplotlib': 'Visualization ready',
-                                'requests': 'Network access ready'}
+                                'requests': 'Network access ready',
+                                'numpy': 'Numerical computation ready'}
 
     try:
         for pack in requirements:
@@ -33,7 +34,7 @@ def loading() -> None:
 
         requirements: list[str] = ['numpy', 'pandas', 'requests', 'matplotlib']
 
-        packages_infos(requirements, ['numpy'])
+        packages_infos(requirements, [])
     except Exception as err:
         print(f"Error: {err}")
 
