@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from pydantic import BaseModel, Field, PastDatetime, ValidationError
+from datetime import datetime
+from pydantic import BaseModel, Field, ValidationError
 
 
 class SpaceStation(BaseModel):
@@ -9,7 +10,7 @@ class SpaceStation(BaseModel):
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
     oxygen_level: float = Field(ge=0.0, le=100.0)
-    last_maintenance: PastDatetime | str = Field()
+    last_maintenance: datetime = Field()
     is_operational: bool = Field()
     notes: str = Field(default="", max_length=200)
 
@@ -40,7 +41,7 @@ def main() -> None:
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance="2023-10-15T08:30:00",
+            last_maintenance=datetime.fromisoformat("2023-10-15T08:30:00"),
             is_operational=True,
             notes="")
         station.display_status()
@@ -62,7 +63,7 @@ def main() -> None:
             crew_size=50,
             power_level=100.0,
             oxygen_level=50.0,
-            last_maintenance="2026-01-01T00:00:00",
+            last_maintenance=datetime.fromisoformat("2026-01-01T00:00:00"),
             is_operational=False
         )
         failed_station.display_status()
