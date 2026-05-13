@@ -311,7 +311,7 @@ def get_type(param: str) -> str | None:
 
 
 if __name__ == "__main__":
-    print("=== Code Nexus - Data Stream ===\n")
+    print("=== Code Nexus - Data Pipeline ===\n")
 
     batch: list[Any] = ['Hello world', [3.14, -1, 2.71],
                         [{'log_level': 'WARNING',
