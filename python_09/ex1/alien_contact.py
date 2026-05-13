@@ -12,7 +12,7 @@ class ContactTypes(Enum):
     telepathic = "telepathic"
 
 
-type contact = ContactTypes
+contact = ContactTypes
 
 
 class AlienContact(BaseModel):
