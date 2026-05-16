@@ -29,7 +29,7 @@ class Pyrodon(Creature):
         self.type: str = "Fire/Flying"
 
     def attack(self) -> str:
-        return f"{self.name} uses Flamethrower"
+        return f"{self.name} uses Flamethrower!"
 
 
 class Aquabub(Creature):
@@ -38,7 +38,7 @@ class Aquabub(Creature):
         self.type: str = "Water"
 
     def attack(self) -> str:
-        return f"{self.name} uses Water Gun"
+        return f"{self.name} uses Water Gun!"
 
 
 class Torragon(Creature):
@@ -47,4 +47,4 @@ class Torragon(Creature):
         self.type: str = "Water"
 
     def attack(self) -> str:
-        return f"{self.name} uses Hydro Pump"
+        return f"{self.name} uses Hydro Pump!"
