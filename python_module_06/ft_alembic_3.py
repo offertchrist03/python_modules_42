@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import alchemy
+from alchemy import create_air
 
 if __name__ == "__main__":
     print("=== Alembic 3 ===")
     print(("Accessing alchemy/elements.py using "
            "'from ... import ...' structure"))
-    print(f"Testing create_air: {alchemy.create_air()}")
+    print(f"Testing create_air: {create_air()}")
