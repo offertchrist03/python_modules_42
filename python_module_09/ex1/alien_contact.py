@@ -2,17 +2,22 @@
 
 from enum import Enum
 from datetime import datetime
-from pydantic import BaseModel, Field, model_validator, ValidationError
+try:
+    from pydantic import BaseModel, Field, ValidationError, model_validator
+except Exception as err:
+    print(f"Error: {err}")
+    print("Run: pip install pydantic")
+    exit(1)
 
 
-class ContactTypes(Enum):
+class ContactType(Enum):
     radio = "radio"
     visual = "visual"
     physical = "physical"
     telepathic = "telepathic"
 
 
-contact = ContactTypes
+contact = ContactType
 
 
 class AlienContact(BaseModel):
@@ -34,14 +39,14 @@ class AlienContact(BaseModel):
 
     @model_validator(mode="after")
     def physical_contact_rules(self) -> "AlienContact":
-        if (self.contact_type == ContactTypes.physical
+        if (self.contact_type == ContactType.physical
                 and (not self.is_verified)):
             raise ValueError("Physical contact reports must be verified")
         return self
 
     @model_validator(mode="after")
     def telepathic_contact_rules(self) -> "AlienContact":
-        if (self.contact_type == ContactTypes.telepathic
+        if (self.contact_type == ContactType.telepathic
                 and self.witness_count < 3):
             raise ValueError(
                 "Telepathic contact requires at least 3 witnesses")
@@ -75,7 +80,7 @@ def main() -> None:
             contact_id="AC_2024_001",
             timestamp=datetime.fromisoformat("2026-01-01"),
             location="Area 51, Nevada",
-            contact_type=ContactTypes.radio,
+            contact_type=ContactType.radio,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=5,
@@ -94,7 +99,7 @@ def main() -> None:
             contact_id="AC_2024_0018888888",
             timestamp=datetime.fromisoformat("2026-01-01"),
             location="Area 51, Nevada",
-            contact_type=ContactTypes.telepathic,
+            contact_type=ContactType.telepathic,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=2,
@@ -103,9 +108,10 @@ def main() -> None:
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            msg = f"{error['msg'][13:]
-                     if error['msg'].startswith('Value error, ')
-                     else error['msg']}"
+            err_txt = str(error['msg'][13:]
+                          if error['msg'].startswith('Value error, ')
+                          else error['msg'])
+            msg = f"{err_txt}"
             print(f"{msg}")
 
     print()
@@ -115,7 +121,7 @@ def main() -> None:
             contact_id="AC_2024_001",
             timestamp=datetime.fromisoformat("2026-01-01"),
             location="Area 51, Nevada",
-            contact_type=ContactTypes.physical,
+            contact_type=ContactType.physical,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=2,
@@ -124,9 +130,10 @@ def main() -> None:
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            msg = f"{error['msg'][13:]
-                     if error['msg'].startswith('Value error, ')
-                     else error['msg']}"
+            err_txt = str(error['msg'][13:]
+                          if error['msg'].startswith('Value error, ')
+                          else error['msg'])
+            msg = f"{err_txt}"
             print(f"{msg}")
 
     print()
@@ -136,7 +143,7 @@ def main() -> None:
             contact_id="AC_2024_001",
             timestamp=datetime.fromisoformat("2026-01-01"),
             location="Area 51, Nevada",
-            contact_type=ContactTypes.telepathic,
+            contact_type=ContactType.telepathic,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=2,
@@ -145,9 +152,10 @@ def main() -> None:
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            msg = f"{error['msg'][13:]
-                     if error['msg'].startswith('Value error, ')
-                     else error['msg']}"
+            err_txt = str(error['msg'][13:]
+                          if error['msg'].startswith('Value error, ')
+                          else error['msg'])
+            msg = f"{err_txt}"
             print(f"{msg}")
 
     print()
@@ -157,7 +165,7 @@ def main() -> None:
             contact_id="AC_2024_001",
             timestamp=datetime.fromisoformat("2026-01-01"),
             location="Area 51, Nevada",
-            contact_type=ContactTypes.radio,
+            contact_type=ContactType.radio,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=2)
@@ -165,10 +173,11 @@ def main() -> None:
     except ValidationError as err:
         print("Expected validation error:")
         for error in err.errors():
-            msg = error['msg']
-            print(f"{msg[13:]
-                     if msg.startswith('Value error, ')
-                     else msg}")
+            err_txt = str(error['msg'][13:]
+                          if error['msg'].startswith('Value error, ')
+                          else error['msg'])
+            msg = f"{err_txt}"
+            print(f"{msg}")
 
 
 if __name__ == "__main__":
