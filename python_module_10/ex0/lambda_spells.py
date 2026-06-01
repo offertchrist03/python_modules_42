@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-type dicti = dict[str, str | int]
-type dictd = dict[str, int | float]
+type DictA = dict[str, str | int]
+type DictB = dict[str, int | float]
 
 
-def artifact_sorter(artifacts: list[dicti]) -> list[dicti]:
-    res: list[dicti] = list(
+def artifact_sorter(artifacts: list[DictA]) -> list[DictA]:
+    res: list[DictA] = list(
         sorted(artifacts, key=lambda artifact: int(artifact['power']) * -1))
     return res
 
 
-def power_filter(mages: list[dicti], min_power: int) -> list[dicti]:
-    res: list[dicti] = list(
+def power_filter(mages: list[DictA], min_power: int) -> list[DictA]:
+    res: list[DictA] = list(
         filter(lambda mage: int(mage['power']) >= min_power, mages))
     return res
 
@@ -23,7 +23,7 @@ def spell_transformer(spells: list[str]) -> list[str]:
     return res
 
 
-def mage_stats(mages: list[dicti]) -> dictd:
+def mage_stats(mages: list[DictA]) -> DictB:
     max_power: int = max(list(
         map(lambda mage: int(mage['power']), mages)
     ))
