@@ -58,7 +58,7 @@ def main() -> None:
     print("Testing spell transformer...")
     spells = ['fireball', 'feal', 'shield']
     transformed = spell_transformer(spells)
-    print(f"{str(transformed)[1:-1].replace("'", "").replace(",", "")}")
+    print(f"{str(transformed)[1:-1].replace('\'', '').replace(',', '')}")
 
     print()
     print("Testing mage stats...")
@@ -76,3 +76,5 @@ if __name__ == "__main__":
         main()
     except Exception as err:
         print(f"Error:\n{err}")
+    except KeyboardInterrupt:
+        pass

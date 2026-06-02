@@ -63,10 +63,10 @@ def spell_dispatcher() -> Callable[..., str]:
 def main() -> None:
     numbers = [40, 30, 20, 10]
     print("Testing spell reducer...")
-    print(f"Sum: {spell_reducer(numbers, "add")}")
-    print(f"Product: {spell_reducer(numbers, "multiply")}")
-    print(f"Max: {spell_reducer(numbers, "max")}")
-    print(f"Min: {spell_reducer(numbers, "min")}")
+    print(f"Sum: {spell_reducer(numbers, 'add')}")
+    print(f"Product: {spell_reducer(numbers, 'multiply')}")
+    print(f"Max: {spell_reducer(numbers, 'max')}")
+    print(f"Min: {spell_reducer(numbers, 'min')}")
 
     print()
     print("Testing memoized fibonacci...")
@@ -87,3 +87,5 @@ if __name__ == "__main__":
         main()
     except Exception as err:
         print(f"Error:\n{err}")
+    except KeyboardInterrupt:
+        pass

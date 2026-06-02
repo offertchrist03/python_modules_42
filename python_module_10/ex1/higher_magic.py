@@ -78,3 +78,5 @@ if __name__ == "__main__":
         main()
     except Exception as err:
         print(f"Error:\n{err}")
+    except KeyboardInterrupt:
+        pass
