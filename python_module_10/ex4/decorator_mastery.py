@@ -29,7 +29,7 @@ def power_validator(min_power: int) -> PowerValidatorType:
                 if "power" in kwargs:
                     power = int(kwargs["power"])
                 elif args:
-                    if hasattr(args[0], "__class__") and len(args) >= 3:
+                    if isinstance(args[0], MageGuild) and len(args) >= 3:
                         power = int(args[2])
                     else:
                         power = int(args[0])
