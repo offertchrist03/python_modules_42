@@ -26,17 +26,15 @@ def power_validator(min_power: int) -> PowerValidatorType:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> str:
             try:
-                # Check for 'power' in kwargs first
                 if "power" in kwargs:
                     power = int(kwargs["power"])
-                # Otherwise, look in args (skip self)
-                if len(args) == 2:
-                    power = int(args[0])
-                elif len(args) == 3:
-                    power = int(args[2])
+                elif args:
+                    if hasattr(args[0], "__class__") and len(args) >= 3:
+                        power = int(args[2])
+                    else:
+                        power = int(args[0])
                 else:
                     power = 0
-
                 if power >= min_power:
                     return func(*args, **kwargs)
                 return "Insufficient power for this spell"
@@ -106,4 +104,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as err:
+        print(f"Error:\n{err}")
