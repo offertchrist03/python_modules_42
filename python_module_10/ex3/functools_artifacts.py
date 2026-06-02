@@ -40,7 +40,7 @@ def memoized_fibonacci(n: int) -> int:
     return (memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2))
 
 
-def spell_dispatcher() -> Callable[[Any], str]:
+def spell_dispatcher() -> Callable[..., str]:
     @functools.singledispatch
     def dispatch(spell: Any) -> str:
         return "Unknown spell type"
@@ -54,7 +54,7 @@ def spell_dispatcher() -> Callable[[Any], str]:
         return f"Enchantment: {enchant}"
 
     @dispatch.register(list)
-    def _(spells: list[Any]) -> str:
+    def _(spells: list[str]) -> str:
         return f"Multi-cast: {len(spells)} spells"
 
     return dispatch
