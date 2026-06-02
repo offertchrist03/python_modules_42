@@ -42,3 +42,36 @@ def spell_sequence(
             res.append(spell(target, power))
         return res
     return sequences
+
+
+def main() -> None:
+    def fireball(target: str, power: int) -> str:
+        if power <= 0:
+            return f"Fireball hits {target}"
+        return f"{power}"
+
+    def heal(target: str, health: int) -> str:
+        return f"Heals {target}"
+
+    print("Testing spell combiner...")
+    fireball_heal = spell_combiner(fireball, heal)
+    print(("Combined spell result: "
+           f"{fireball_heal('Dragon', 0)[0]}, "
+           f"{fireball_heal('Dragon', 0)[1]}"))
+
+    print()
+    original_fireball = power_amplifier(fireball, 1)
+    mega_fireball = power_amplifier(fireball, 3)
+    print("Testing power amplifier...")
+    print((f"Original: {original_fireball('Dragon', 10)}, "
+           f"Amplified: {mega_fireball('Dragon', 10)}"))
+
+    print()
+    print("Testing spell sequence...")
+    sequences = spell_sequence([fireball, fireball])
+    for hit in sequences('Dragon', 0):
+        print(hit)
+
+
+if __name__ == "__main__":
+    main()

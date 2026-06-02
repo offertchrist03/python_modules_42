@@ -35,3 +35,41 @@ def mage_stats(mages: list[DictA]) -> DictB:
     )) / len(mages)), 2)
     return {"max_power": max_power,
             "min_power": min_power, "avg_power": average}
+
+
+def main() -> None:
+    artifacts: list[DictA] = [{'name': 'Excalibur', 'power': 64},
+                              {'name': 'Oak Staff', 'power': 74},
+                              {'name': 'Crystal Orb', 'power': 85},
+                              {'name': 'Fire Staff', 'power': 92}]
+
+    print("Testing artifact sorter...")
+    sorteds = artifact_sorter(artifacts)
+    print(
+        (f"{sorteds[0]['name']} ({sorteds[0]['power']} power) comes before "
+         f"{sorteds[1]['name']} ({sorteds[1]['power']} power)"))
+
+    print()
+    print("Testing power filter...")
+    filtered = power_filter(artifacts, 90)
+    print(filtered)
+
+    print()
+    print("Testing spell transformer...")
+    spells = ['fireball', 'feal', 'shield']
+    transformed = spell_transformer(spells)
+    print(f"{str(transformed)[1:-1].replace("'", "").replace(",", "")}")
+
+    print()
+    print("Testing mage stats...")
+    mages: list[DictA] = [
+        {'name': 'Gandalf', 'power': 150},
+        {'name': 'Merlin', 'power': 160},
+        {'name': 'Arthur', 'power': 85}
+    ]
+    stats = mage_stats(mages)
+    print(stats)
+
+
+if __name__ == "__main__":
+    main()

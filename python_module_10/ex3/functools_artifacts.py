@@ -58,3 +58,29 @@ def spell_dispatcher() -> Callable[..., str]:
         return f"Multi-cast: {len(spells)} spells"
 
     return dispatch
+
+
+def main() -> None:
+    numbers = [40, 30, 20, 10]
+    print("Testing spell reducer...")
+    print(f"Sum: {spell_reducer(numbers, "add")}")
+    print(f"Product: {spell_reducer(numbers, "multiply")}")
+    print(f"Max: {spell_reducer(numbers, "max")}")
+    print(f"Min: {spell_reducer(numbers, "min")}")
+
+    print()
+    print("Testing memoized fibonacci...")
+    for test in [0, 1, 10, 15]:
+        print(f"fib({test}): {memoized_fibonacci(test)}")
+
+    print()
+    print("Testing spell dispatcher...")
+    detach = spell_dispatcher()
+    print(detach(42))
+    print(detach('fireball'))
+    print(detach(['fireball', 'lightning', 'heal']))
+    print(detach({'dict': 'unknown'}))
+
+
+if __name__ == "__main__":
+    main()
